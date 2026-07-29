@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0e0d0b">
+<meta name="msvalidate.01" content="E95E4677E27706D8CA20967BB29620A1" />
+<title>Matthew VanDoodewaard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0e0d0b;--ink2:#1c1a17;--ink3:#141310;--cream:#f7f3ec;--cream2:#ede8df;
+  --gold:#9a7d4a;--gold2:#c4a46b;--rule:#d4cbbf;--muted:#8a8070;--light-text:#5a5248;
+  --nav-h:60px;--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream);color:var(--ink);overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 60px;padding-top:var(--safe-top);background:rgba(14,13,11,0.97);border-bottom:1px solid rgba(154,125,74,0.2);transform:translateY(0);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);will-change:transform}
+nav.hidden{transform:translateY(calc(-100% - var(--safe-top)))}
+.nav-wordmark{font-weight:300;font-size:13px;letter-spacing:0.28em;text-transform:uppercase;color:var(--cream);cursor:pointer;white-space:nowrap;background:none;border:none;font-family:'Cormorant Garamond',serif;padding:0;line-height:1}
+.nav-right{display:flex;align-items:center;list-style:none;gap:0}
+.nav-item{position:relative}
+.nav-link{display:flex;align-items:center;gap:4px;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(247,243,236,0.55);cursor:pointer;padding:0 18px;height:var(--nav-h);transition:color 0.25s;border:none;background:none;font-family:'Cormorant Garamond',serif;white-space:nowrap}
+.nav-link:hover,.nav-item:hover .nav-link,.nav-link:focus{color:var(--gold2);outline:none}
+.nav-caret{font-size:7px;opacity:0.4;transition:transform 0.25s;display:inline-block}
+.nav-item:hover .nav-caret{transform:rotate(180deg)}
+.dropdown{position:absolute;top:var(--nav-h);left:50%;transform:translateX(-50%) translateY(-4px);min-width:220px;background:rgba(14,13,11,0.99);border:1px solid rgba(154,125,74,0.15);border-top:1px solid var(--gold);opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s}
+.nav-item:hover .dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.dropdown-link{display:block;padding:12px 22px;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(247,243,236,0.5);cursor:pointer;border-bottom:1px solid rgba(154,125,74,0.07);transition:color 0.2s,background 0.2s;white-space:nowrap}
+.dropdown-link:last-child{border-bottom:none}
+.dropdown-link:hover{color:var(--gold2);background:rgba(154,125,74,0.05)}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:1px;background:rgba(247,243,236,0.6);transition:transform 0.3s,opacity 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:850;background:rgba(14,13,11,0.98);flex-direction:column;align-items:center;justify-content:center;gap:0;padding:80px 40px 40px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-section{width:100%;border-bottom:1px solid rgba(154,125,74,0.12);padding:0}
+.mobile-section-head{display:flex;align-items:center;justify-content:space-between;padding:18px 0;cursor:pointer}
+.mobile-section-label{font-size:11px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(247,243,236,0.55)}
+.mobile-section-caret{font-size:9px;color:var(--gold);transition:transform 0.25s}
+.mobile-section.expanded .mobile-section-caret{transform:rotate(180deg)}
+.mobile-sub{display:none;padding-bottom:12px}
+.mobile-section.expanded .mobile-sub{display:block}
+.mobile-sub-link{display:block;padding:10px 0 10px 16px;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(247,243,236,0.35);cursor:pointer;border-left:1px solid rgba(154,125,74,0.2)}
+.mobile-sub-link:hover{color:var(--gold2)}
+.mobile-direct{width:100%;border-bottom:1px solid rgba(154,125,74,0.12);padding:18px 0;font-size:11px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(247,243,236,0.55);cursor:pointer;background:none;border-left:none;border-right:none;border-top:none;font-family:'Cormorant Garamond',serif;text-align:left}
+
+/* LAYOUT */
+.page-body{padding-top:var(--nav-h)}
+.container{max-width:1100px;margin:0 auto;padding:0 60px}
+.section{padding:100px 0}
+.eyebrow{font-size:9px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:block}
+.heading-1{font-weight:300;font-size:clamp(28px,3.5vw,52px);letter-spacing:0.05em;color:var(--ink);line-height:1.1;margin-bottom:20px}
+.heading-1.light{color:var(--cream)}
+.rule{width:36px;height:1px;background:var(--gold);margin-bottom:52px}
+.body-text{font-weight:300;font-size:17px;color:var(--light-text);line-height:1.95;max-width:580px}
+
+/* HERO */
+#hero-page{position:relative;height:100svh;min-height:500px;background:var(--ink);overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('VanDoodewaard_BlackDeath.jpg');background-size:cover;background-position:center 30%;opacity:0.55}
+.hero-vignette{position:absolute;inset:0;background:linear-gradient(to right,rgba(14,13,11,0.7) 0%,transparent 40%,transparent 60%,rgba(14,13,11,0.7) 100%),linear-gradient(to bottom,rgba(14,13,11,0.4) 0%,transparent 30%,rgba(14,13,11,0.85) 100%)}
+.hero-body{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:max(10vh,60px);padding-bottom:calc(max(10vh,60px) + var(--safe-bot));text-align:center;padding-left:24px;padding-right:24px}
+.hero-name{font-weight:300;font-size:clamp(28px,5.5vw,72px);letter-spacing:0.12em;color:var(--cream);line-height:1;margin-bottom:16px}
+.hero-descriptor{font-size:11px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold2);font-weight:300;margin-bottom:48px}
+.hero-scroll{font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(247,243,236,0.28);cursor:pointer;background:none;border:none;font-family:'Cormorant Garamond',serif;transition:color 0.3s;padding:12px 24px;-webkit-tap-highlight-color:transparent}
+.hero-scroll:hover,.hero-scroll:focus{color:var(--gold2);outline:none}
+
+/* GALLERY - v26 Masonry */
+.gallery-grid{columns:3;column-gap:2px}
+.g-item{break-inside:avoid;margin-bottom:2px;position:relative;overflow:hidden;cursor:pointer;background:var(--ink);display:block;-webkit-tap-highlight-color:transparent}
+.g-item img{width:100%;height:auto;display:block;transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94),opacity 0.4s;opacity:0.9}
+.g-item:hover img{transform:scale(1.05);opacity:1}
+.g-caption{position:absolute;bottom:0;left:0;right:0;padding:52px 14px 14px;background:linear-gradient(to top,rgba(10,9,8,0.92) 0%,transparent 100%);opacity:0;transform:translateY(6px);transition:opacity 0.35s,transform 0.35s}
+.g-item:hover .g-caption,.g-item.touched .g-caption{opacity:1;transform:translateY(0)}
+.g-caption-title{font-size:15px;font-weight:400;color:var(--cream);letter-spacing:0.04em;margin-bottom:3px}
+.g-caption-sub{font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold2)}
+.g-caption-badge{display:inline-block;margin-top:5px;font-size:7px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(154,125,74,0.4);padding:2px 7px}
+
+/* LIGHTBOX */
+#lb{display:none;position:fixed;inset:0;z-index:2000;background:rgba(8,7,6,0.97);flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:calc(20px + var(--safe-top));padding-bottom:calc(20px + var(--safe-bot))}
+#lb.open{display:flex}
+.lb-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:100%;flex:1;min-height:0}
+#lb-img{max-width:100%;max-height:100%;object-fit:contain;border:1px solid rgba(154,125,74,0.12)}
+.lb-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:1px solid rgba(154,125,74,0.25);background:rgba(14,13,11,0.6);color:rgba(247,243,236,0.5);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color 0.25s,color 0.25s;font-family:serif;-webkit-tap-highlight-color:transparent;border-radius:0}
+.lb-btn:hover,.lb-btn:focus{border-color:var(--gold);color:var(--gold2);outline:none}
+.lb-prev{left:4px}.lb-next{right:4px}
+.lb-info{margin-top:16px;text-align:center;flex-shrink:0}
+.lb-title{font-size:18px;font-weight:300;color:var(--cream);letter-spacing:0.08em;margin-bottom:5px}
+.lb-sub{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold)}
+.lb-dims{font-size:9px;letter-spacing:0.2em;color:rgba(247,243,236,0.3);margin-top:4px}
+.lb-badge{display:inline-block;margin-top:7px;font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(154,125,74,0.35);padding:3px 10px}
+.lb-count{font-size:9px;letter-spacing:0.2em;color:rgba(247,243,236,0.22);margin-top:6px}
+.lb-close{position:fixed;top:calc(16px + var(--safe-top));right:20px;font-size:28px;color:rgba(247,243,236,0.35);cursor:pointer;background:none;border:none;font-family:serif;line-height:1;transition:color 0.25s;padding:8px;-webkit-tap-highlight-color:transparent;z-index:2001}
+.lb-close:hover{color:var(--gold2)}
+
+/* ABOUT */
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.about-img-wrap img{width:100%;height:auto;display:block;border:1px solid rgba(154,125,74,0.1)}
+.about-img-caption{margin-top:12px;font-size:10px;letter-spacing:0.2em;color:rgba(247,243,236,0.22);font-style:italic;text-align:center}
+.about-bio p{font-weight:300;font-size:17px;color:rgba(247,243,236,0.62);line-height:2.05;margin-bottom:24px}
+.about-bio p:last-child{margin-bottom:0}
+.influences-block{margin-top:40px;padding-top:32px;border-top:1px solid rgba(154,125,74,0.15)}
+.influences-label{font-size:9px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.influences-names{font-size:14px;font-weight:300;color:rgba(247,243,236,0.32);letter-spacing:0.06em;line-height:2.4}
+
+/* CRITICS BAND */
+.critics-band{background:var(--ink3);border-top:1px solid rgba(154,125,74,0.1);border-bottom:1px solid rgba(154,125,74,0.1);padding:80px 0}
+.critics-inner{max-width:1100px;margin:0 auto;padding:0 60px;display:grid;grid-template-columns:repeat(3,1fr);gap:56px}
+.critics-eyebrow{font-size:9px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:48px;display:block;text-align:center;grid-column:1/-1}
+.critic-item blockquote{font-style:italic;font-weight:300;font-size:clamp(16px,1.6vw,22px);color:rgba(247,243,236,0.5);letter-spacing:0.03em;line-height:1.8;margin-bottom:18px}
+.critic-item cite{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);font-style:normal;display:block;line-height:2.2}
+
+/* MATERIALS */
+.mat-header{width:100%;height:300px;position:relative;overflow:hidden;background:var(--ink)}
+.mat-header img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;opacity:0.55}
+.mat-header-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,13,11,0.3) 0%,rgba(14,13,11,0.75) 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:40px;text-align:center}
+.mat-header-title{font-weight:300;font-size:clamp(24px,3.5vw,48px);letter-spacing:0.1em;color:var(--cream);margin-bottom:10px}
+.mat-header-sub{font-size:10px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold2)}
+.lineage-band{background:var(--ink2);border-top:1px solid rgba(154,125,74,0.12);border-bottom:1px solid rgba(154,125,74,0.12);padding:32px 60px;display:flex;flex-direction:column;align-items:center}
+.lineage-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;width:100%;padding:16px 0}
+.lineage-row+.lineage-row{border-top:1px solid rgba(154,125,74,0.08)}
+.lineage-row-label{font-size:8px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);min-width:140px;text-align:right;padding-right:24px;flex-shrink:0}
+.lineage-items{display:flex;align-items:center;flex-wrap:wrap}
+.lineage-item{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(247,243,236,0.32);padding:4px 20px;border-right:1px solid rgba(154,125,74,0.15);white-space:nowrap}
+.lineage-item:last-child{border-right:none}
+.lineage-item strong{color:var(--gold2);font-weight:400}
+.supply-section{padding:72px 0}
+.supply-section-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px}
+.supply-card{display:grid;grid-template-columns:280px 1fr;align-items:stretch;background:var(--cream);border:1px solid var(--rule);margin-bottom:2px;overflow:hidden}
+.supply-card.reverse{grid-template-columns:1fr 280px}
+.supply-card-img{width:280px;overflow:hidden;background:var(--cream2);flex-shrink:0;border-right:1px solid var(--rule)}
+.supply-card.reverse .supply-card-img{border-right:none;border-left:1px solid var(--rule);order:2}
+.supply-card-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;min-height:260px}
+.supply-card-body{padding:40px 44px}
+.supply-card-eyebrow{font-size:9px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block}
+.supply-card-name{font-size:clamp(18px,2vw,26px);font-weight:300;color:var(--ink);letter-spacing:0.04em;margin-bottom:6px;line-height:1.2}
+.supply-card-since{font-size:11px;letter-spacing:0.2em;color:var(--muted);margin-bottom:22px;font-style:italic}
+.supply-card-rule{width:28px;height:1px;background:var(--gold);margin-bottom:22px}
+.supply-card-text{font-size:14px;font-weight:300;color:var(--light-text);line-height:1.95;margin-bottom:14px}
+.supply-card-text:last-of-type{margin-bottom:0}
+.supply-card-link{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(154,125,74,0.3);padding-bottom:2px;transition:color 0.2s;display:inline-block;margin-top:14px}
+.supply-card-link:hover{color:var(--ink)}
+.fabriano-block{background:var(--ink2);padding:72px 60px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;border-top:1px solid rgba(154,125,74,0.1)}
+.fabriano-stat{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(154,125,74,0.08);margin-top:32px}
+.fabriano-stat-item{background:var(--ink2);padding:24px 20px}
+.fabriano-stat-num{font-size:28px;font-weight:300;color:var(--gold2);letter-spacing:0.04em;margin-bottom:4px}
+.fabriano-stat-label{font-size:9px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(247,243,236,0.28)}
+.fabriano-quote{border-left:1px solid var(--gold);padding-left:28px}
+.fabriano-quote blockquote{font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;color:rgba(247,243,236,0.65);line-height:1.8;margin-bottom:18px}
+.fabriano-quote cite{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);font-style:normal}
+.archival-note{background:var(--cream2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:44px 60px;text-align:center}
+.archival-note p{font-size:14px;font-weight:300;font-style:italic;color:var(--muted);letter-spacing:0.06em;max-width:680px;margin:0 auto}
+
+/* PRICING */
+.pricing-cols{display:grid;grid-template-columns:1fr 1fr;gap:72px}
+.p-col-head{font-size:13px;font-weight:400;color:var(--gold2);letter-spacing:0.14em;margin-bottom:6px}
+.p-col-sub{font-size:9px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(247,243,236,0.25);margin-bottom:24px}
+.p-table{width:100%;border-collapse:collapse}
+.p-table tr{border-bottom:1px solid rgba(154,125,74,0.1)}
+.p-table tr:last-child{border-bottom:none}
+.p-table td{padding:10px 0;font-size:14px;font-weight:300;color:rgba(247,243,236,0.6);letter-spacing:0.04em}
+.p-table td:last-child{text-align:right;color:var(--cream);font-weight:400}
+.pricing-note{margin-top:52px;padding-top:28px;border-top:1px solid rgba(154,125,74,0.12);font-size:13px;letter-spacing:0.1em;color:rgba(247,243,236,0.28);font-style:italic;line-height:2}
+
+/* CALCULATOR */
+.calc-wrap{margin-top:72px;border-top:1px solid rgba(154,125,74,0.15);padding-top:60px}
+.calc-header{margin-bottom:48px}
+.calc-head{font-size:9px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.calc-title{font-weight:300;font-size:clamp(22px,2.5vw,36px);letter-spacing:0.05em;color:var(--cream);margin-bottom:10px}
+.calc-disclaimer{font-size:11px;font-weight:300;color:rgba(247,243,236,0.22);letter-spacing:0.12em;font-style:italic;margin-top:6px}
+.calc-selectors{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(154,125,74,0.12);margin-bottom:1px}
+.calc-col{background:rgba(255,255,255,0.02);display:flex;flex-direction:column}
+.calc-col-head{padding:18px 20px 14px;border-bottom:1px solid rgba(154,125,74,0.1)}
+.calc-col-label{font-size:8px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0}
+.calc-options{flex:1;padding:8px 0}
+.calc-option{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:background 0.18s;-webkit-tap-highlight-color:transparent}
+.calc-option:hover{background:rgba(154,125,74,0.06)}
+.calc-option input[type=radio]{display:none}
+.calc-radio{width:12px;height:12px;border:1px solid rgba(154,125,74,0.3);border-radius:50%;flex-shrink:0;position:relative;transition:border-color 0.2s}
+.calc-option input[type=radio]:checked ~ .calc-radio{border-color:var(--gold2)}
+.calc-option input[type=radio]:checked ~ .calc-radio::after{content:'';position:absolute;inset:2px;background:var(--gold2);border-radius:50%}
+.calc-option-text{font-size:13px;font-weight:300;color:rgba(247,243,236,0.45);letter-spacing:0.04em;transition:color 0.2s;line-height:1.3}
+.calc-option input[type=radio]:checked ~ .calc-radio ~ .calc-option-text{color:var(--cream)}
+.calc-dims-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(154,125,74,0.12);margin-bottom:28px}
+.calc-dim-field{background:rgba(255,255,255,0.02);padding:18px 20px}
+.calc-dim-label{font-size:8px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
+.calc-dim-input{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(154,125,74,0.2);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;padding:6px 0;outline:none;transition:border-color 0.25s;appearance:none;-webkit-appearance:none;border-radius:0}
+.calc-dim-input:focus{border-bottom-color:var(--gold2)}
+.calc-dim-input::placeholder{color:rgba(247,243,236,0.15)}
+.calc-result-panel{background:rgba(154,125,74,0.05);border:1px solid rgba(154,125,74,0.15);display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px;padding:32px 36px}
+.calc-result-status{font-size:8px;letter-spacing:0.38em;text-transform:uppercase;color:rgba(247,243,236,0.25);margin-bottom:8px}
+.calc-result-price{font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--cream);letter-spacing:0.04em;line-height:1}
+.calc-result-breakdown{margin-top:10px;font-size:11px;font-weight:300;color:rgba(247,243,236,0.25);letter-spacing:0.08em;font-style:italic;line-height:1.8}
+.calc-result-right{text-align:right;flex-shrink:0}
+.calc-result-empty{font-size:14px;font-weight:300;color:rgba(247,243,236,0.2);letter-spacing:0.1em;font-style:italic}
+.calc-enquire-btn{display:inline-block;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:9px;letter-spacing:0.38em;text-transform:uppercase;padding:13px 32px;cursor:pointer;transition:background 0.3s,color 0.3s;-webkit-tap-highlight-color:transparent;border-radius:0;margin-top:20px}
+.calc-enquire-btn:hover{background:var(--gold);color:var(--ink)}
+
+/* EXHIBITIONS */
+.exhibition-entry{display:grid;grid-template-columns:160px 1fr;gap:52px;padding:52px 0;border-bottom:1px solid var(--rule);align-items:start}
+.exhibition-entry:first-of-type{border-top:1px solid var(--rule)}
+.ex-date{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);line-height:2.2;padding-top:4px}
+.ex-title{font-size:22px;font-weight:400;color:var(--ink);letter-spacing:0.03em;margin-bottom:14px;line-height:1.3}
+.ex-body{font-size:14px;font-weight:300;color:var(--light-text);line-height:1.95;margin-bottom:12px}
+.ex-quote{border-left:2px solid var(--gold);padding-left:18px;margin:20px 0;font-style:italic;font-size:14px;color:var(--muted)}
+.ex-stat-row{display:flex;gap:36px;margin:20px 0;flex-wrap:wrap}
+.ex-stat{text-align:center}
+.ex-stat-num{font-size:26px;font-weight:300;color:var(--gold2);letter-spacing:0.04em}
+.ex-stat-label{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.ex-links{margin-top:20px;display:flex;gap:20px;flex-wrap:wrap}
+.ex-link{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(154,125,74,0.3);padding-bottom:2px;transition:color 0.25s}
+.ex-link:hover{color:var(--ink)}
+
+/* FORMS */
+.form-stack{display:flex;flex-direction:column;gap:18px}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.f-group{display:flex;flex-direction:column;gap:8px}
+.f-label{font-size:9px;letter-spacing:0.34em;text-transform:uppercase;color:rgba(247,243,236,0.3)}
+.f-input,.f-select,.f-textarea{background:rgba(255,255,255,0.03);border:1px solid rgba(154,125,74,0.15);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;padding:13px 14px;outline:none;width:100%;transition:border-color 0.25s;appearance:none;-webkit-appearance:none;border-radius:0}
+.f-input:focus,.f-select:focus,.f-textarea:focus{border-color:rgba(154,125,74,0.45)}
+.f-textarea{resize:vertical;min-height:100px}
+.f-select option{background:#1a1916}
+.btn{align-self:flex-start;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:9px;letter-spacing:0.38em;text-transform:uppercase;padding:14px 36px;cursor:pointer;transition:background 0.3s,color 0.3s;margin-top:4px;-webkit-tap-highlight-color:transparent;border-radius:0}
+.btn:hover{background:var(--gold);color:var(--ink)}
+.btn:disabled{opacity:0.4;cursor:not-allowed}
+
+/* FORMSPREE FEEDBACK */
+.fs-success{display:none;padding:20px 24px;border:1px solid rgba(154,125,74,0.3);background:rgba(154,125,74,0.06)}
+.fs-success p{font-size:13px;font-weight:300;color:var(--gold2);letter-spacing:0.12em;font-style:italic}
+.fs-error{display:none;margin-top:12px;font-size:12px;letter-spacing:0.1em;color:rgba(220,80,80,0.7);font-style:italic}
+
+/* ENQUIRE */
+.enquire-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-block p{font-size:14px;font-weight:300;color:rgba(247,243,236,0.45);line-height:1.95;margin-bottom:24px}
+.contact-email{font-size:14px;color:rgba(247,243,236,0.35);letter-spacing:0.06em;margin-bottom:28px;display:block}
+.ig-link{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold2);text-decoration:none;transition:color 0.25s}
+.ig-link:hover{color:var(--cream)}
+.ig-link svg{width:14px;height:14px;fill:currentColor}
+
+/* FOOTER */
+footer{background:var(--ink);border-top:1px solid rgba(154,125,74,0.1);padding:28px 60px;padding-bottom:calc(28px + var(--safe-bot));display:flex;align-items:center;justify-content:space-between}
+.footer-l{font-size:10px;letter-spacing:0.22em;color:rgba(247,243,236,0.22);text-transform:uppercase}
+.footer-r{font-size:10px;letter-spacing:0.1em;color:rgba(247,243,236,0.14)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* HOME */
+.home-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.home-three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(154,125,74,0.08)}
+.home-col-item{padding:48px 36px;background:var(--ink2)}
+.home-col-item.bordered{border-left:1px solid rgba(154,125,74,0.1);border-right:1px solid rgba(154,125,74,0.1)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .container{padding:0 40px}
+  .gallery-grid{columns:2}
+  .home-intro-grid{gap:48px}
+  .about-layout{gap:48px}
+  .supply-card,.supply-card.reverse{grid-template-columns:1fr}
+  .supply-card-img{width:100%;height:240px;border-right:none;border-bottom:1px solid var(--rule)}
+  .supply-card-img img{min-height:unset;height:100%}
+  .supply-card.reverse .supply-card-img{border-left:none;border-top:1px solid var(--rule);order:0}
+  .fabriano-block{grid-template-columns:1fr;gap:40px;padding:56px 40px}
+  .lineage-band{padding:24px 40px}
+  .lineage-row-label{min-width:auto;text-align:left;padding-right:16px}
+  .supply-section-head{grid-template-columns:1fr;gap:20px}
+  .archival-note{padding:36px 40px}
+  .calc-selectors{grid-template-columns:repeat(2,1fr)}
+  .critics-inner{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media(max-width:768px){
+  :root{--nav-h:56px}
+  nav{padding:0 20px;padding-top:var(--safe-top)}
+  .nav-right{display:none}
+  .hamburger{display:flex}
+  .container{padding:0 20px}
+  .section{padding:64px 0}
+  .gallery-grid{columns:2;column-gap:1px}
+  .g-item{margin-bottom:1px}
+  .g-caption{opacity:1;transform:translateY(0);padding:36px 10px 10px}
+  .g-caption-title{font-size:12px}
+  .g-caption-sub{font-size:7px}
+  .home-intro-grid{grid-template-columns:1fr;gap:36px}
+  .home-three-col{grid-template-columns:1fr}
+  .home-col-item.bordered{border-left:none;border-right:none;border-top:1px solid rgba(154,125,74,0.1);border-bottom:1px solid rgba(154,125,74,0.1)}
+  .about-layout{grid-template-columns:1fr;gap:36px}
+  .pricing-cols{grid-template-columns:1fr;gap:40px}
+  .enquire-layout{grid-template-columns:1fr;gap:36px}
+  .exhibition-entry{grid-template-columns:1fr;gap:10px}
+  .calc-selectors{grid-template-columns:1fr 1fr}
+  .calc-dims-row{grid-template-columns:1fr 1fr}
+  .calc-result-panel{grid-template-columns:1fr;gap:16px}
+  .calc-result-right{text-align:left}
+  .supply-section-head{grid-template-columns:1fr;gap:16px}
+  .fabriano-block{padding:48px 20px;gap:32px}
+  .lineage-band{padding:20px}
+  .lineage-row{flex-direction:column;align-items:flex-start;gap:8px}
+  .lineage-row-label{text-align:left;padding-right:0;min-width:auto}
+  .lineage-items{flex-wrap:wrap;gap:4px}
+  .lineage-item{padding:2px 12px;font-size:9px}
+  .archival-note{padding:32px 20px}
+  .mat-header{height:200px}
+  .supply-card-body{padding:28px 24px}
+  footer{flex-direction:column;gap:8px;text-align:center;padding:20px;padding-bottom:calc(20px + var(--safe-bot))}
+  .form-row-2{grid-template-columns:1fr}
+  .lb-prev{left:2px}.lb-next{right:2px}
+  .lb-title{font-size:15px}
+  .hero-descriptor{font-size:10px;letter-spacing:0.28em}
+  .home-col-item{padding:36px 24px}
+  .ex-stat-row{gap:20px}
+  .critics-inner{grid-template-columns:1fr;gap:40px;padding:0 20px}
+  .critics-band{padding:56px 0}
+}
+@media(max-width:480px){
+  .calc-selectors{grid-template-columns:1fr}
+  .gallery-grid{columns:1}
+  .g-caption{opacity:1;transform:translateY(0)}
+  .hero-name{font-size:clamp(24px,8vw,40px)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <button class="nav-wordmark" onclick="showPage('home')">Matthew VanDoodewaard</button>
+  <ul class="nav-right">
+    <li class="nav-item">
+      <button class="nav-link" onclick="showPage('gallery')">Works <span class="nav-caret">&#9662;</span></button>
+      <div class="dropdown">
+        <span class="dropdown-link" onclick="showPage('gallery')">Selected Works</span>
+        <span class="dropdown-link" onclick="showPage('about')">The Artist</span>
+        <span class="dropdown-link" onclick="showPage('materials')">Materials</span>
+      </div>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" onclick="showPage('pricing')">Pricing <span class="nav-caret">&#9662;</span></button>
+      <div class="dropdown">
+        <span class="dropdown-link" onclick="showPage('pricing')">Pricing Guidelines</span>
+        <span class="dropdown-link" onclick="showPage('pricing');setTimeout(()=>document.getElementById('calculator').scrollIntoView({behavior:'smooth'}),300)">Price Calculator</span>
+        <span class="dropdown-link" onclick="showPage('enquire')">Acquisition Enquiry</span>
+      </div>
+    </li>
+    <li class="nav-item"><button class="nav-link" onclick="showPage('exhibitions')">Exhibitions</button></li>
+    <li class="nav-item"><button class="nav-link" onclick="showPage('enquire')">Enquire</button></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-section" id="ms-works">
+    <div class="mobile-section-head" onclick="toggleMobileSection('ms-works')">
+      <span class="mobile-section-label">Works</span><span class="mobile-section-caret">&#9662;</span>
+    </div>
+    <div class="mobile-sub">
+      <span class="mobile-sub-link" onclick="mobileNav('gallery')">Selected Works</span>
+      <span class="mobile-sub-link" onclick="mobileNav('about')">The Artist</span>
+      <span class="mobile-sub-link" onclick="mobileNav('materials')">Materials</span>
+    </div>
+  </div>
+  <div class="mobile-section" id="ms-pricing">
+    <div class="mobile-section-head" onclick="toggleMobileSection('ms-pricing')">
+      <span class="mobile-section-label">Pricing</span><span class="mobile-section-caret">&#9662;</span>
+    </div>
+    <div class="mobile-sub">
+      <span class="mobile-sub-link" onclick="mobileNav('pricing')">Pricing Guidelines</span>
+      <span class="mobile-sub-link" onclick="mobileNav('pricing','calculator')">Price Calculator</span>
+      <span class="mobile-sub-link" onclick="mobileNav('enquire')">Acquisition Enquiry</span>
+    </div>
+  </div>
+  <button class="mobile-direct" onclick="mobileNav('exhibitions')">Exhibitions</button>
+  <button class="mobile-direct" onclick="mobileNav('enquire')">Enquire</button>
+</div>
+
+<!-- HOME -->
+<div class="page active" id="home-page">
+  <section id="hero-page">
+    <div class="hero-bg"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-body">
+      <h1 class="hero-name">Matthew VanDoodewaard</h1>
+      <p class="hero-descriptor">Original Works &nbsp;&middot;&nbsp; Watercolour and Pen</p>
+      <button class="hero-scroll" onclick="showPage('gallery')">View Works</button>
+    </div>
+  </section>
+  <section class="section" style="background:var(--cream)">
+    <div class="container">
+      <div class="home-intro-grid reveal">
+        <div>
+          <span class="eyebrow">The Work</span>
+          <h2 class="heading-1">Original works in pen and watercolour</h2>
+          <div class="rule"></div>
+          <p class="body-text">VanDoodewaard works primarily in pen and watercolour on archival papers. His subjects are drawn from the natural world. All works are unique originals, produced by hand using materials that are known across the art world for their quality.</p>
+          <br><button class="btn" style="margin-top:16px" onclick="showPage('gallery')">Selected Works</button>
+        </div>
+        <div>
+          <img src="VanDoodewaard_IvoryGhost.jpg" alt="Ivory Ghost" style="width:100%;height:auto;display:block;border:1px solid var(--rule)">
+          <p style="margin-top:10px;font-size:10px;letter-spacing:0.16em;color:var(--muted);font-style:italic;text-align:center">Ivory Ghost &nbsp;&middot;&nbsp; Pen and Ink on Paper &nbsp;&middot;&nbsp; 11&times;14&Prime; &nbsp;&middot;&nbsp; 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="background:var(--ink2)">
+    <div class="container">
+      <div class="home-three-col">
+        <div class="home-col-item reveal">
+          <span class="eyebrow">Practice</span>
+          <p style="font-size:15px;font-weight:300;color:rgba(247,243,236,0.5);line-height:1.95">Pen and watercolour on paper and board. Traditional methods and materials.</p>
+        </div>
+        <div class="home-col-item bordered reveal">
+          <span class="eyebrow">Exhibition</span>
+          <p style="font-size:15px;font-weight:300;color:rgba(247,243,236,0.5);line-height:1.95">Selected for the David Shepherd Wildlife Foundation Wildlife Artist of the Year 2026. Mall Galleries, London.</p>
+        </div>
+        <div class="home-col-item reveal">
+          <span class="eyebrow">Acquisitions</span>
+          <p style="font-size:15px;font-weight:300;color:rgba(247,243,236,0.5);line-height:1.95">Works are available for acquisition. Floor prices are listed. All enquiries are welcome.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+</div>
+
+<!-- GALLERY -->
+<div class="page" id="gallery-page">
+  <div class="page-body">
+    <section class="section">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px" class="reveal">
+          <div>
+            <span class="eyebrow">Portfolio</span>
+            <h2 class="heading-1">Selected Works</h2>
+            <div class="rule"></div>
+          </div>
+          <p class="body-text">Original works across pen, ink, watercolour, graphite, and acrylic. All works are unique originals on archival supports unless otherwise noted. Additional works available upon enquiry.</p>
+        </div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+        <p style="margin-top:40px;font-size:12px;letter-spacing:0.16em;color:var(--muted);font-style:italic" class="reveal">All originals are unique &nbsp;&middot;&nbsp; Further works available upon enquiry</p>
+      </div>
+    </section>
+    <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="lbOutside(event)">
+  <button class="lb-close" onclick="lbClose()">&times;</button>
+  <div class="lb-wrap">
+    <button class="lb-btn lb-prev" onclick="lbNav(-1)">&#8592;</button>
+    <img id="lb-img" src="" alt="">
+    <button class="lb-btn lb-next" onclick="lbNav(1)">&#8594;</button>
+  </div>
+  <div class="lb-info">
+    <p class="lb-title" id="lb-title"></p>
+    <p class="lb-sub" id="lb-sub"></p>
+    <p class="lb-dims" id="lb-dims"></p>
+    <p class="lb-badge" id="lb-badge" style="display:none"></p>
+    <p class="lb-count" id="lb-count"></p>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="about-page">
+  <div class="page-body" style="background:var(--ink2)">
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow reveal">Biography</span>
+        <h2 class="heading-1 light reveal">The Artist</h2>
+        <div class="rule reveal"></div>
+        <div class="about-layout reveal">
+          <div class="about-bio">
+            <p>Matthew VanDoodewaard has been drawing since childhood: at his grandfather&rsquo;s suggestion, he began to focus on wildlife in middle school. Commissions and competitions through high school developed his ability and interest in portraying the natural world through art. Travel in several countries and many ecosystems&#8213;from Mexican deserts to Irish coastlines to Canadian snow storms&#8213;make reflecting this beauty even more fulfilling. Raising and rehabilitating birds provided a deep appreciation for the wonder and complexity of creation.</p>
+            <p>Working in pencil, pen, and watercolour on archival canvas, board, and paper, VanDoodewaard&rsquo;s pieces are highly detailed.</p>
+            <p>VanDoodewaard is inspired by a variety of great artists, especially Rembrandt, Audubon, Winslow Homer, Frederick Remington, and Robert Bateman. His work was selected for the David Shepherd Wildlife Foundation Wildlife Artist of the Year 2026 exhibition at Mall Galleries, London.</p>
+            <div class="influences-block">
+              <span class="influences-label">Influences</span>
+              <p class="influences-names">Rembrandt &nbsp;&middot;&nbsp; John James Audubon<br>Winslow Homer &nbsp;&middot;&nbsp; Frederick Remington<br>Robert Bateman</p>
+            </div>
+          </div>
+          <div class="about-img-wrap">
+            <img src="VanDoodewaard_Solitude.jpg" alt="Solitude">
+            <p class="about-img-caption">Solitude &nbsp;&middot;&nbsp; 2026</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CRITICS BAND -->
+  <div class="critics-band">
+    <div class="critics-inner">
+      <span class="critics-eyebrow">Critical Assessment</span>
+      <div class="critic-item reveal">
+        <blockquote>&ldquo;Compelling.&rdquo;</blockquote>
+        <cite>Emma Hartman, MFA<br>Museum &amp; Gallery Education Coordinator<br>Savannah College of Art and Design</cite>
+      </div>
+      <div class="critic-item reveal">
+        <blockquote>&ldquo;A stunning and vibrant depiction &mdash; delicate transitions of color.&rdquo;</blockquote>
+        <cite>April Schwingle<br>MA, 3 Dimensional Art &nbsp;&middot;&nbsp; BA, Graphic Design</cite>
+      </div>
+      <div class="critic-item reveal">
+        <blockquote>&ldquo;Remarkable.&rdquo;</blockquote>
+        <cite>Jared Stanley, PhD<br>Fine Arts<br>Texas Tech University</cite>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--ink2);padding:0 60px">
+    <div style="border-top:1px solid rgba(154,125,74,0.15);padding:28px 0;text-align:center">
+      <p style="font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold)">Works from this series are held in private collections in Europe &nbsp;&middot;&nbsp; The Pacific &nbsp;&middot;&nbsp; Asia &nbsp;&middot;&nbsp; North America</p>
+    </div>
+  </div>
+
+  <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+</div>
+
+<!-- MATERIALS -->
+<div class="page" id="materials-page">
+  <div class="page-body">
+    <div class="mat-header">
+      <img src="Cotman-desktop.jpg" alt="Winsor and Newton Cotman Watercolours">
+      <div class="mat-header-overlay">
+        <h2 class="mat-header-title">Materials and Process</h2>
+        <p class="mat-header-sub">Archival materials &nbsp;&middot;&nbsp; Traditional methods</p>
+      </div>
+    </div>
+    <div class="lineage-band">
+      <div class="lineage-row">
+        <span class="lineage-row-label">Winsor and Newton</span>
+        <div class="lineage-items">
+          <div class="lineage-item">Used by <strong>J.M.W. Turner</strong></div>
+          <div class="lineage-item">Used by <strong>King Charles III</strong></div>
+          <div class="lineage-item">Royal Warrant holders since <strong>1841</strong></div>
+        </div>
+      </div>
+      <div class="lineage-row">
+        <span class="lineage-row-label">Fabriano</span>
+        <div class="lineage-items">
+          <div class="lineage-item">Used by <strong>Leonardo da Vinci</strong></div>
+          <div class="lineage-item">Used by <strong>Michelangelo</strong></div>
+          <div class="lineage-item">In continuous production since <strong>1276</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="supply-section" style="background:var(--cream)">
+      <div class="container">
+        <div class="supply-section-head reveal">
+          <div>
+            <span class="eyebrow">The Materials</span>
+            <h2 class="heading-1">Suppliers and Provenance</h2>
+            <div class="rule"></div>
+          </div>
+          <p class="body-text">All materials are selected for archival permanence. No digital tools are used in the production of original works.</p>
+        </div>
+        <div class="supply-card reveal">
+          <div class="supply-card-img"><img src="wn-series7-watercolor-brushes-beauty-05578-399439262.jpg" alt="Winsor and Newton Series 7 Brushes"></div>
+          <div class="supply-card-body">
+            <span class="supply-card-eyebrow">Brushes</span>
+            <h3 class="supply-card-name">Winsor and Newton<br>Series 7 Kolinsky Sable</h3>
+            <p class="supply-card-since">Founded London, 1832 &nbsp;&middot;&nbsp; Royal Warrant holders since 1841</p>
+            <div class="supply-card-rule"></div>
+            <p class="supply-card-text">Winsor and Newton was established in 1832 by scientist William Winsor and artist Henry Newton at 38 Rathbone Place, London. From the outset, the company worked directly with practising artists &mdash; among them J.M.W. Turner &mdash; to develop materials of the highest possible standard. They hold a Royal Warrant and are the watercolour supplier of choice to King Charles III.</p>
+            <p class="supply-card-text">The Series 7 brush was created in 1866 at the direct request of Queen Victoria. Each brush is hand-made in England by craftsmen with a minimum of ten years&rsquo; experience. The Kolinsky sable hair is sourced from the tail of the Siberian weasel, prized for its exceptional spring, point, and colour-carrying capacity.</p>
+            <a class="supply-card-link" href="https://www.winsornewton.com/collections/series-7-finest-kolinsky-sable-brushes" target="_blank">winsornewton.com</a>
+          </div>
+        </div>
+        <div class="supply-card reverse reveal" style="margin-top:2px">
+          <div class="supply-card-body">
+            <span class="supply-card-eyebrow">Ink</span>
+            <h3 class="supply-card-name">Winsor and Newton<br>Drawing Ink</h3>
+            <p class="supply-card-since">Founded London, 1832 &nbsp;&middot;&nbsp; Archival pigment inks</p>
+            <div class="supply-card-rule"></div>
+            <p class="supply-card-text">Winsor and Newton Drawing Inks are shellac-based, waterproof when dry, and formulated for use with dip pens, ruling pens, and brushes on paper and board. Maximum pigment concentration, archival permanence, and consistency of colour across batches.</p>
+            <p class="supply-card-text">Compatible with watercolour washes applied over dried line work, making them the standard choice for pen-and-wash technique in the British watercolour tradition.</p>
+            <a class="supply-card-link" href="https://www.winsornewton.com/collections/drawing-inks" target="_blank">winsornewton.com</a>
+          </div>
+          <div class="supply-card-img"><img src="drawing_ink.lifestyle3_c9e8f680-1599-422e-ab96-262c913ab08e-344977000.png" alt="Winsor and Newton Drawing Ink"></div>
+        </div>
+        <div class="supply-card reveal" style="margin-top:2px">
+          <div class="supply-card-img"><img src="Sakura-Micron-05-207248613.jpg" alt="Sakura Pigma Micron"></div>
+          <div class="supply-card-body">
+            <span class="supply-card-eyebrow">Fineliner Pens</span>
+            <h3 class="supply-card-name">Sakura<br>Pigma Micron</h3>
+            <p class="supply-card-since">Pigma ink introduced 1982 &nbsp;&middot;&nbsp; Archival standard</p>
+            <div class="supply-card-rule"></div>
+            <p class="supply-card-text">Sakura introduced Pigma ink in 1982 &mdash; a pigment-based, chemically stable formulation developed specifically for archival applications. Waterproof, fade-resistant, and acid-free. Does not bleed when watercolour washes are applied over dried lines.</p>
+            <p class="supply-card-text">Specified by archivists, anthropologists, and government laboratories for permanent record-keeping. The standard tool for archival line work across professional illustration, scientific documentation, and fine art.</p>
+            <a class="supply-card-link" href="https://www.sakuraofamerica.com/product/pigma-micron" target="_blank">sakuraofamerica.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fabriano-block reveal">
+      <div>
+        <span class="eyebrow" style="color:var(--gold)">Paper</span>
+        <h3 style="font-weight:300;font-size:clamp(22px,2.5vw,38px);letter-spacing:0.05em;color:var(--cream);margin-bottom:10px;line-height:1.2">Fabriano</h3>
+        <p style="font-size:11px;letter-spacing:0.2em;color:var(--muted);font-style:italic;margin-bottom:24px">Fabriano, Marche, Italy &nbsp;&middot;&nbsp; Est. 1276</p>
+        <div style="width:28px;height:1px;background:var(--gold);margin-bottom:24px"></div>
+        <p style="font-size:15px;font-weight:300;color:rgba(247,243,236,0.55);line-height:2;margin-bottom:16px">The town of Fabriano has produced paper since 1276. Both Leonardo da Vinci and Michelangelo used Fabriano paper for drawings and studies &mdash; among the most scrutinised and preserved works in Western art history, still intact after five centuries.</p>
+        <div class="fabriano-stat">
+          <div class="fabriano-stat-item"><p class="fabriano-stat-num">1276</p><p class="fabriano-stat-label">Year of first mill</p></div>
+          <div class="fabriano-stat-item"><p class="fabriano-stat-num">750+</p><p class="fabriano-stat-label">Years of continuous production</p></div>
+          <div class="fabriano-stat-item"><p class="fabriano-stat-num">100%</p><p class="fabriano-stat-label">Cotton rag composition</p></div>
+          <div class="fabriano-stat-item"><p class="fabriano-stat-num">pH 7+</p><p class="fabriano-stat-label">Acid-free, buffered</p></div>
+        </div>
+      </div>
+      <div class="fabriano-quote">
+        <blockquote>&ldquo;Both Leonardo da Vinci and Michelangelo used Fabriano paper for drawings and studies. Paper made from the Fabriano area, beginning in the fourteenth century, is remarkable for its exceptional quality and permanence.&rdquo;</blockquote>
+        <cite>Sylvia Rodgers Albro, Senior Paper Conservator &nbsp;&middot;&nbsp; Library of Congress</cite>
+        <div style="margin-top:40px;padding-top:36px;border-top:1px solid rgba(154,125,74,0.15)">
+          <span style="font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:16px">Also in use</span>
+          <p style="font-size:14px;font-weight:300;color:rgba(247,243,236,0.38);line-height:2.2;letter-spacing:0.04em">Arches Aquarelle &nbsp;&middot;&nbsp; 100% cotton rag<br>Canson Mi-Teintes &nbsp;&middot;&nbsp; Black paper<br>Canson Montval &nbsp;&middot;&nbsp; Cold press<br>Frederix &nbsp;&middot;&nbsp; Archival canvas<br>Hunt dip pens and nibs</p>
+        </div>
+      </div>
+    </div>
+    <div class="archival-note">
+      <p>All materials are selected for archival permanence. Works produced on these supports and with these media are expected to remain stable for generations under normal conditions of display and storage.</p>
+    </div>
+    <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="page" id="pricing-page">
+  <div class="page-body" style="background:var(--ink)">
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow reveal">Acquisitions</span>
+        <h2 class="heading-1 light reveal">Pricing</h2>
+        <div class="rule reveal"></div>
+        <p style="font-size:13px;letter-spacing:0.12em;color:rgba(247,243,236,0.3);font-style:italic;margin-bottom:48px" class="reveal">Floor prices only. Individual works may be priced above these figures.</p>
+        <div class="pricing-cols reveal">
+          <div>
+            <p class="p-col-head">Exhibited</p>
+            <p class="p-col-sub">Following institutional exhibition</p>
+            <table class="p-table">
+              <tr><td>4 &times; 4&Prime;</td><td>$750</td></tr>
+              <tr><td>5 &times; 5&Prime;</td><td>$850</td></tr>
+              <tr><td>5 &times; 7&Prime;</td><td>$950</td></tr>
+              <tr><td>6 &times; 8&Prime;</td><td>$1,100</td></tr>
+              <tr><td>8 &times; 8&Prime;</td><td>$1,250</td></tr>
+              <tr><td>8 &times; 10&Prime;</td><td>$1,500</td></tr>
+              <tr><td>9 &times; 12&Prime;</td><td>$2,200</td></tr>
+              <tr><td>11 &times; 14&Prime;</td><td>$3,000</td></tr>
+              <tr><td>12 &times; 16&Prime;</td><td>$3,800</td></tr>
+              <tr><td>16 &times; 20&Prime;</td><td>$6,200</td></tr>
+            </table>
+          </div>
+          <div>
+            <p class="p-col-head">Non-Exhibited</p>
+            <p class="p-col-sub">Prior to institutional exhibition</p>
+            <table class="p-table">
+              <tr><td>4 &times; 4&Prime;</td><td>$565</td></tr>
+              <tr><td>5 &times; 5&Prime;</td><td>$640</td></tr>
+              <tr><td>5 &times; 7&Prime;</td><td>$715</td></tr>
+              <tr><td>6 &times; 8&Prime;</td><td>$825</td></tr>
+              <tr><td>8 &times; 8&Prime;</td><td>$940</td></tr>
+              <tr><td>8 &times; 10&Prime;</td><td>$1,125</td></tr>
+              <tr><td>9 &times; 12&Prime;</td><td>$1,650</td></tr>
+              <tr><td>11 &times; 14&Prime;</td><td>$2,250</td></tr>
+              <tr><td>12 &times; 16&Prime;</td><td>$2,850</td></tr>
+              <tr><td>16 &times; 20&Prime;</td><td>$4,650</td></tr>
+            </table>
+          </div>
+        </div>
+        <p class="pricing-note reveal">Custom framing available on request. All enquiries welcome.</p>
+        <div class="calc-wrap reveal" id="calculator">
+          <div class="calc-header">
+            <span class="calc-head">Tools</span>
+            <h3 class="calc-title">Price Calculator</h3>
+            <p class="calc-disclaimer">All calculations are approximate &nbsp;&middot;&nbsp; Floor price only &nbsp;&middot;&nbsp; Final price may vary</p>
+          </div>
+          <div class="calc-dims-row">
+            <div class="calc-dim-field">
+              <label class="calc-dim-label" for="calc-w">Width &mdash; inches</label>
+              <input class="calc-dim-input" type="number" id="calc-w" min="1" max="60" placeholder="0" oninput="calcPrice()" inputmode="decimal">
+            </div>
+            <div class="calc-dim-field">
+              <label class="calc-dim-label" for="calc-h">Height &mdash; inches</label>
+              <input class="calc-dim-input" type="number" id="calc-h" min="1" max="60" placeholder="0" oninput="calcPrice()" inputmode="decimal">
+            </div>
+          </div>
+          <div class="calc-selectors">
+            <div class="calc-col">
+              <div class="calc-col-head"><span class="calc-col-label">Exhibition Status</span></div>
+              <div class="calc-options">
+                <label class="calc-option"><input type="radio" name="status" value="non" checked onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Non-Exhibited</span></label>
+                <label class="calc-option"><input type="radio" name="status" value="ex" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Exhibited</span></label>
+              </div>
+            </div>
+            <div class="calc-col">
+              <div class="calc-col-head"><span class="calc-col-label">Medium</span></div>
+              <div class="calc-options">
+                <label class="calc-option"><input type="radio" name="medium" value="1.00" checked onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Graphite</span></label>
+                <label class="calc-option"><input type="radio" name="medium" value="1.00" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Charcoal</span></label>
+                <label class="calc-option"><input type="radio" name="medium" value="1.00" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Gel Ink</span></label>
+                <label class="calc-option"><input type="radio" name="medium" value="1.05" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Pen and Ink</span></label>
+                <label class="calc-option"><input type="radio" name="medium" value="1.00" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">India Ink</span></label>
+                <label class="calc-option"><input type="radio" name="medium" value="1.00" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Pen and Wash</span></label>
+                <label class="calc-option"><input type="radio" name="medium" value="1.05" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Watercolour</span></label>
+                <label class="calc-option"><input type="radio" name="medium" value="1.15" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Acrylic</span></label>
+              </div>
+            </div>
+            <div class="calc-col">
+              <div class="calc-col-head"><span class="calc-col-label">Subject</span></div>
+              <div class="calc-options">
+                <label class="calc-option"><input type="radio" name="subject" value="1.00" checked onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Wildlife</span></label>
+                <label class="calc-option"><input type="radio" name="subject" value="1.08" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Wildlife &mdash; Big Game</span></label>
+                <label class="calc-option"><input type="radio" name="subject" value="1.05" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Architecture</span></label>
+                <label class="calc-option"><input type="radio" name="subject" value="1.00" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Landscape</span></label>
+                <label class="calc-option"><input type="radio" name="subject" value="0.90" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Study</span></label>
+                <label class="calc-option"><input type="radio" name="subject" value="1.00" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Still Life / Object</span></label>
+                <label class="calc-option"><input type="radio" name="subject" value="1.02" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Pet Portrait</span></label>
+                <label class="calc-option"><input type="radio" name="subject" value="0.88" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Calligraphy</span></label>
+              </div>
+            </div>
+            <div class="calc-col">
+              <div class="calc-col-head"><span class="calc-col-label">Purchase Type</span></div>
+              <div class="calc-options">
+                <label class="calc-option"><input type="radio" name="purchase" value="1.10" onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Commission</span></label>
+                <label class="calc-option"><input type="radio" name="purchase" value="1.00" checked onchange="calcPrice()"><span class="calc-radio"></span><span class="calc-option-text">Available Works</span></label>
+              </div>
+            </div>
+          </div>
+          <div class="calc-result-panel">
+            <div class="calc-result-left">
+              <p class="calc-result-status" id="calc-status-label">Enter dimensions to calculate</p>
+              <p class="calc-result-price" id="calc-price-display" style="display:none"></p>
+              <p class="calc-result-breakdown" id="calc-breakdown" style="display:none"></p>
+              <p class="calc-result-empty" id="calc-empty">&#8212;</p>
+            </div>
+            <div class="calc-result-right">
+              <button class="calc-enquire-btn" onclick="showPage('enquire')">Enquire</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+  </div>
+</div>
+
+<!-- EXHIBITIONS -->
+<div class="page" id="exhibitions-page">
+  <div class="page-body" style="background:var(--cream)">
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow reveal">Calendar</span>
+        <h2 class="heading-1 reveal">Exhibitions</h2>
+        <div class="rule reveal"></div>
+        <div class="exhibition-entry reveal">
+          <div class="ex-date">8 &ndash; 12 September 2026<br>London, UK<br><br>Mall Galleries<br>The Mall, St. James&rsquo;s<br>SW1Y 5AH</div>
+          <div>
+            <h3 class="ex-title">David Shepherd Wildlife Foundation<br>Wildlife Artist of the Year 2026</h3>
+            <p class="ex-body">DSWF Wildlife Artist of the Year (WAY) is an internationally renowned wildlife art competition and exhibition. Each year, it attracts entries from some of the most talented artists around the globe, who come together to celebrate the beauty of the natural world. Since its inception in 2008, WAY has raised over &pound;2 million to benefit conservation work across Africa and Asia.</p>
+            <p class="ex-body">The exhibition showcases a breathtaking selection of shortlisted artworks commended by an expert judging panel, portraying a variety of techniques and mediums &mdash; from recycled plastic sculptures and intricate pencil drawings to vast colourful oil paintings, and everything in between.</p>
+            <p class="ex-body">With entry income and 50% of the proceeds from all artwork sales supporting DSWF and field partners, WAY highlights how art can create something powerful and ignite conversation about conservation.</p>
+            <div class="ex-quote">&ldquo;The Oscars of international wildlife art.&rdquo;</div>
+            <p class="ex-body">Playing an integral role in helping to maintain the &lsquo;Art of Survival&rsquo; legacy of founder David Shepherd CBE, WAY utilises the power of art to celebrate wildlife, support awareness, and raise funds for endangered species across Africa and Asia.</p>
+            <div class="ex-stat-row">
+              <div class="ex-stat"><p class="ex-stat-num">2008</p><p class="ex-stat-label">Founded</p></div>
+              <div class="ex-stat"><p class="ex-stat-num">&pound;2M+</p><p class="ex-stat-label">Raised for conservation</p></div>
+              <div class="ex-stat"><p class="ex-stat-num">50%</p><p class="ex-stat-label">Of sales to DSWF</p></div>
+            </div>
+            <p class="ex-body" style="font-style:italic;color:var(--muted)">Matthew VanDoodewaard &mdash; DSWF 2026 Exhibiting Artist.</p>
+            <div class="ex-links">
+              <a class="ex-link" href="https://www.mallgalleries.org.uk" target="_blank">Mall Galleries</a>
+              <a class="ex-link" href="https://davidshepherd.org/wildlife-artist-of-the-year/" target="_blank">DSWF</a>
+              <a class="ex-link" href="https://maps.google.com/?q=Mall+Galleries+The+Mall+London+SW1Y+5AH" target="_blank">Directions</a>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:40px;font-size:12px;letter-spacing:0.14em;color:var(--muted);font-style:italic" class="reveal">Further exhibition dates to be announced. Enquire for private viewings.</p>
+      </div>
+    </section>
+    <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+  </div>
+</div>
+
+<!-- ENQUIRE -->
+<div class="page" id="enquire-page">
+  <div class="page-body" style="background:var(--ink)">
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow reveal">Contact</span>
+        <h2 class="heading-1 light reveal">Enquire</h2>
+        <div class="rule reveal"></div>
+        <div class="enquire-layout reveal">
+          <div class="contact-block">
+            <p>For acquisition enquiries, commission discussions, exhibition opportunities, or general correspondence, use the form or write directly.</p>
+            <span class="contact-email">scupstateart@gmail.com</span>
+            <a class="ig-link" href="https://www.instagram.com/scupstateart/" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              @scupstateart
+            </a>
+          </div>
+          <div>
+            <div class="fs-success" id="fs-success">
+              <p>Thank you &mdash; your message has been received. I will be in touch shortly.</p>
+            </div>
+            <form class="form-stack" id="enquire-form" novalidate>
+              <div class="f-group"><label class="f-label">Name</label><input class="f-input" type="text" name="name" required autocomplete="name"></div>
+              <div class="f-group"><label class="f-label">Email</label><input class="f-input" type="email" name="email" required autocomplete="email" inputmode="email"></div>
+              <div class="f-group"><label class="f-label">Subject</label><select class="f-select" name="subject"><option value="">Select</option><option>Acquisition Enquiry</option><option>Commission</option><option>Exhibition / Gallery</option><option>Press</option><option>General</option></select></div>
+              <div class="f-group"><label class="f-label">Message</label><textarea class="f-textarea" name="message" required></textarea></div>
+              <p class="fs-error" id="fs-error">Something went wrong. Please try again or write directly to scupstateart@gmail.com</p>
+              <button type="submit" class="btn" id="fs-submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+  </div>
+</div>
+
+<script>
+const works=[
+  {src:'VanDoodewaard_BlackDeath.jpg',title:'Black Death',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033',badge:'DSWF Finalist'},
+  {src:'VanDoodewaard_Lonely.jpg',title:'Lonely',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033',badge:'DSWF Finalist'},
+  {src:'VanDoodewaard_IvoryGhost.jpg',title:'Ivory Ghost',medium:'Pen and Ink on Paper',year:'2026',dims:'11\u00d714\u2033'},
+  {src:'IMG_20260718_163109.jpg',title:'Nocturne',medium:'Gel Ink on Black Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'VanDoodewaard_HuntingIslandLighthouse.jpg',title:'Hunting Island Lighthouse',medium:'Watercolour and Pen',year:'2026',dims:'4\u00d76\u2033'},
+  {src:'VanDoodewaard_Caribou.jpg',title:'Caribou',medium:'Watercolour and Graphite',year:'2026',dims:'4\u00d76\u2033'},
+  {src:'VanDoodewaard_Chimp.jpg',title:'Chimp',medium:'Pen on Paper',year:'2026',dims:'11\u00d714\u2033'},
+  {src:'VanDoodewaard_Pelican(Detail).jpg',title:'Pelican (Detail)',medium:'Graphite on Paper',year:'2026',dims:'4\u00d74\u2033'},
+  {src:'VanDoodewaard_TheWaterfall.jpg',title:'The Waterfall',medium:'Ink and Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'VanDoodewaard_WatchingTheWaterRise.jpg',title:'Watching the Water Rise',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033'},
+  {src:'VanDoodewaard_Sticklegs.jpg',title:'Sticklegs',medium:'Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'VanDoodewaard_Leap.jpg',title:'Leap',medium:'Pen and Wash',year:'2026',dims:'4\u00d76\u2033'},
+  {src:'IMG_20251111_131252.jpg',title:'And No Birds Sang',medium:'Watercolour on Paper',year:'2025',dims:'11\u00d714\u2033'},
+  {src:'IMG_20260123_171427.jpg',title:'Not to Scale \u2014 Trafficked Pangolin',medium:'Watercolour and India Ink',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'IMG_20260719_084525.jpg',title:'Luna',medium:'Gel Ink on Black Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'VanDoodewaard_CliffsOfDover.jpg',title:'Cliffs of Dover',medium:'Watercolour and Pen',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'VanDoodewaard_ThreeTrees(Detail).jpg',title:'Three Trees (Detail)',medium:'Pen and Ink',year:'2026',dims:'8.5\u00d711\u2033'},
+  {src:'20250621_174527.jpg',title:'Prairie Chicken',medium:'Watercolour on Paper',year:'2025',dims:'6\u00d78\u2033'},
+  {src:'IMG_20260610_161628.jpg',title:'Guadalupe',medium:'Acrylic on Canvas',year:'2026',dims:'9\u00d712\u2033'},
+  {src:'IMG_20250930_160833.jpg',title:'Dugga Boy',medium:'Watercolour and Ink on Paper',year:'2025',dims:'6\u00d78\u2033'},
+  {src:'20250424_165422[1].jpg',title:'Holland and Holland Side by Side',medium:'Graphite on Paper',year:'2025',dims:'4\u00d76\u2033'},
+  {src:'IMG_20260502_124755.jpg',title:'Grouse',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033'},
+  {src:'VanDoodewaard_Ewe.jpg',title:'Ewe',medium:'Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'IMG_20251127_110223~3.jpg',title:'Ring of Brodgar',medium:'Watercolour on Paper',year:'2025',dims:'8\u00d710\u2033'},
+  {src:'IMG_20250823_205223~2.jpg',title:'Baby Elephant Sketch',medium:'Graphite on Paper',year:'2025',dims:'2\u00d73\u2033'},
+  {src:'IMG_20251103_211311_01.jpg',title:'Illuminated Alphabet',medium:'Watercolour and Ink',year:'2024',dims:'10\u00d710\u2033'}
+];
+
+const grid=document.getElementById('gallery-grid');
+const isMobile=()=>window.innerWidth<=768;
+works.forEach((w,i)=>{
+  const el=document.createElement('div');
+  el.className='g-item reveal';
+  const badge=w.badge?`<span class="g-caption-badge">${w.badge}</span>`:'';
+  el.innerHTML=`<img src="${w.src}" alt="${w.title}" loading="lazy"><div class="g-caption"><p class="g-caption-title">${w.title}</p><p class="g-caption-sub">${w.medium} &nbsp;&middot;&nbsp; ${w.dims} &nbsp;&middot;&nbsp; ${w.year}</p>${badge}</div>`;
+  el.addEventListener('click',()=>lbOpen(i));
+  let tapped=false;
+  el.addEventListener('touchend',e=>{
+    if(isMobile()){
+      if(!tapped){e.preventDefault();tapped=true;el.classList.add('touched');setTimeout(()=>{tapped=false;el.classList.remove('touched')},2000)}
+      else{tapped=false;el.classList.remove('touched');lbOpen(i)}
+    }
+  },{passive:false});
+  grid.appendChild(el);
+});
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg=document.getElementById(id+'-page');
+  if(pg){pg.classList.add('active');window.scrollTo({top:0,behavior:'instant'});initReveal()}
+  closeMobileMenu();
+}
+
+let lastY=0,ticking=false;
+const nav=document.getElementById('main-nav');
+window.addEventListener('scroll',()=>{
+  if(!ticking){requestAnimationFrame(()=>{const y=window.scrollY;if(y>80){if(y>lastY+4)nav.classList.add('hidden');else if(y<lastY-4)nav.classList.remove('hidden');}else{nav.classList.remove('hidden');}lastY=y;ticking=false;});ticking=true;}
+},{passive:true});
+
+function toggleMobileMenu(){const mm=document.getElementById('mobile-menu');const hb=document.getElementById('hamburger');const open=mm.classList.toggle('open');hb.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';nav.classList.remove('hidden')}
+function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');document.body.style.overflow=''}
+function toggleMobileSection(id){document.getElementById(id).classList.toggle('expanded')}
+function mobileNav(page,anchor){showPage(page);if(anchor){setTimeout(()=>{const el=document.getElementById(anchor);if(el)el.scrollIntoView({behavior:'smooth'})},300)}}
+
+let lbIdx=0;
+function lbOpen(i){lbIdx=i;lbUpdate();document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
+function lbUpdate(){
+  const w=works[lbIdx];
+  document.getElementById('lb-img').src=w.src;
+  document.getElementById('lb-title').textContent=w.title;
+  document.getElementById('lb-sub').textContent=`${w.medium} \u00b7 ${w.year}`;
+  document.getElementById('lb-dims').textContent=w.dims;
+  const badge=document.getElementById('lb-badge');
+  if(w.badge){badge.textContent=w.badge;badge.style.display='inline-block'}else{badge.style.display='none'}
+  document.getElementById('lb-count').textContent=`${lbIdx+1} / ${works.length}`;
+}
+function lbNav(d){lbIdx=(lbIdx+d+works.length)%works.length;lbUpdate()}
+function lbClose(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
+function lbOutside(e){if(e.target===document.getElementById('lb'))lbClose()}
+let lbTouchX=null;
+document.getElementById('lb').addEventListener('touchstart',e=>{lbTouchX=e.touches[0].clientX},{passive:true});
+document.getElementById('lb').addEventListener('touchend',e=>{
+  if(lbTouchX===null)return;
+  const dx=e.changedTouches[0].clientX-lbTouchX;
+  if(Math.abs(dx)>50)lbNav(dx<0?1:-1);
+  lbTouchX=null;
+},{passive:true});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='Escape')lbClose();
+  if(e.key==='ArrowLeft')lbNav(-1);
+  if(e.key==='ArrowRight')lbNav(1);
+});
+
+const brackets=[{maxArea:16,non:565,ex:750},{maxArea:25,non:640,ex:850},{maxArea:35,non:715,ex:950},{maxArea:48,non:825,ex:1100},{maxArea:64,non:940,ex:1250},{maxArea:80,non:1125,ex:1500},{maxArea:108,non:1650,ex:2200},{maxArea:154,non:2250,ex:3000},{maxArea:192,non:2850,ex:3800},{maxArea:320,non:4650,ex:6200}];
+function getRadioVal(name){const el=document.querySelector(`input[name="${name}"]:checked`);return el?parseFloat(el.value):1.0}
+function calcPrice(){
+  const w=parseFloat(document.getElementById('calc-w').value);const h=parseFloat(document.getElementById('calc-h').value);
+  const statusEl=document.querySelector('input[name="status"]:checked');const status=statusEl?statusEl.value:'non';
+  const medMult=getRadioVal('medium'),subMult=getRadioVal('subject'),purMult=getRadioVal('purchase');
+  const priceEl=document.getElementById('calc-price-display'),breakEl=document.getElementById('calc-breakdown'),emptyEl=document.getElementById('calc-empty'),statusLbl=document.getElementById('calc-status-label');
+  if(!w||!h||w<=0||h<=0){priceEl.style.display='none';breakEl.style.display='none';emptyEl.style.display='block';statusLbl.textContent='Enter dimensions to calculate';return;}
+  const area=w*h;let base=null;
+  for(let i=0;i<brackets.length;i++){if(area<=brackets[i].maxArea){base=status==='ex'?brackets[i].ex:brackets[i].non;break}}
+  if(base===null){const last=brackets[brackets.length-1];base=Math.round((status==='ex'?last.ex:last.non)*(area/320))}
+  const medAdj=base*(medMult-1),subAdj=base*(subMult-1),purAdj=base*(purMult-1);
+  const total=Math.round((base+medAdj+subAdj+purAdj)/25)*25;
+  const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0}).format(n);
+  priceEl.textContent=fmt(total);priceEl.style.display='block';emptyEl.style.display='none';
+  const parts=[`${w}\u2033 \u00d7 ${h}\u2033 \u00b7 ${area.toFixed(1)} sq in`,status==='ex'?'Exhibited':'Non-Exhibited'];
+  if(Math.abs(medAdj)>0)parts.push(`Medium ${medAdj>0?'+':''}${fmt(Math.round(medAdj))}`);
+  if(Math.abs(subAdj)>0)parts.push(`Subject ${subAdj>0?'+':''}${fmt(Math.round(subAdj))}`);
+  if(Math.abs(purAdj)>0)parts.push(`Purchase type ${purAdj>0?'+':''}${fmt(Math.round(purAdj))}`);
+  breakEl.textContent=parts.join(' \u00b7 ');breakEl.style.display='block';statusLbl.textContent='Estimated floor price';
+}
+
+document.getElementById('enquire-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const form=e.target;
+  const btn=document.getElementById('fs-submit');
+  const successEl=document.getElementById('fs-success');
+  const errorEl=document.getElementById('fs-error');
+  btn.disabled=true;
+  btn.textContent='Sending\u2026';
+  errorEl.style.display='none';
+  const data=new FormData(form);
+  try{
+    const res=await fetch('https://formspree.io/f/xjgnlzab',{method:'POST',body:data,headers:{Accept:'application/json'}});
+    if(res.ok){form.style.display='none';successEl.style.display='block';}
+    else{errorEl.style.display='block';btn.disabled=false;btn.textContent='Send';}
+  }catch(err){errorEl.style.display='block';btn.disabled=false;btn.textContent='Send';}
+});
+
+const ro=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');ro.unobserve(en.target)}});},{threshold:0.06});
+function initReveal(){document.querySelectorAll('.reveal:not(.in)').forEach(el=>ro.observe(el))}
+initReveal();
+</script>
+</body>
+</html>
