@@ -34,11 +34,13 @@ nav.hidden{transform:translateY(calc(-100% - var(--safe-top)))}
 .dropdown-link{display:block;padding:12px 22px;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(247,243,236,0.5);cursor:pointer;border-bottom:1px solid rgba(154,125,74,0.07);transition:color 0.2s,background 0.2s;white-space:nowrap}
 .dropdown-link:last-child{border-bottom:none}
 .dropdown-link:hover{color:var(--gold2);background:rgba(154,125,74,0.05)}
+
 .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0}
 .hamburger span{display:block;width:22px;height:1px;background:rgba(247,243,236,0.6);transition:transform 0.3s,opacity 0.3s}
 .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
 .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:850;background:rgba(14,13,11,0.98);flex-direction:column;align-items:center;justify-content:center;gap:0;padding:80px 40px 40px;overflow-y:auto}
 .mobile-menu.open{display:flex}
 .mobile-section{width:100%;border-bottom:1px solid rgba(154,125,74,0.12);padding:0}
@@ -68,7 +70,7 @@ nav.hidden{transform:translateY(calc(-100% - var(--safe-top)))}
 .hero-vignette{position:absolute;inset:0;background:linear-gradient(to right,rgba(14,13,11,0.7) 0%,transparent 40%,transparent 60%,rgba(14,13,11,0.7) 100%),linear-gradient(to bottom,rgba(14,13,11,0.4) 0%,transparent 30%,rgba(14,13,11,0.85) 100%)}
 .hero-body{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:max(10vh,60px);padding-bottom:calc(max(10vh,60px) + var(--safe-bot));text-align:center;padding-left:24px;padding-right:24px}
 .hero-name{font-weight:300;font-size:clamp(28px,5.5vw,72px);letter-spacing:0.12em;color:var(--cream);line-height:1;margin-bottom:16px}
-.hero-descriptor{font-size:11px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold2);font-weight:300;margin-bottom:48px}
+.hero-descriptor{font-weight:300;font-size:11px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold2);margin-bottom:48px}
 .hero-scroll{font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(247,243,236,0.28);cursor:pointer;background:none;border:none;font-family:'Cormorant Garamond',serif;transition:color 0.3s;padding:12px 24px;-webkit-tap-highlight-color:transparent}
 .hero-scroll:hover,.hero-scroll:focus{color:var(--gold2);outline:none}
 
@@ -496,34 +498,34 @@ footer{background:var(--ink);border-top:1px solid rgba(154,125,74,0.1);padding:2
         </div>
       </div>
     </section>
-  </div>
 
-  <!-- CRITICS BAND -->
-  <div class="critics-band">
-    <div class="critics-inner">
-      <span class="critics-eyebrow">Critical Assessment</span>
-      <div class="critic-item reveal">
-        <blockquote>&ldquo;Compelling.&rdquo;</blockquote>
-        <cite>Emma Hartman, MFA<br>Museum &amp; Gallery Education Coordinator<br>Savannah College of Art and Design</cite>
-      </div>
-      <div class="critic-item reveal">
-        <blockquote>&ldquo;A stunning and vibrant depiction &mdash; delicate transitions of color.&rdquo;</blockquote>
-        <cite>April Schwingle<br>MA, 3 Dimensional Art &nbsp;&middot;&nbsp; BA, Graphic Design</cite>
-      </div>
-      <div class="critic-item reveal">
-        <blockquote>&ldquo;Remarkable.&rdquo;</blockquote>
-        <cite>Jared Stanley, PhD<br>Fine Arts<br>Texas Tech University</cite>
+    <!-- CRITICS BAND -->
+    <div class="critics-band">
+      <div class="critics-inner">
+        <span class="critics-eyebrow">Critical Assessment</span>
+        <div class="critic-item reveal">
+          <blockquote>&ldquo;Compelling.&rdquo;</blockquote>
+          <cite>Emma Hartman, MFA<br>Museum &amp; Gallery Education Coordinator<br>Savannah College of Art and Design</cite>
+        </div>
+        <div class="critic-item reveal">
+          <blockquote>&ldquo;A stunning and vibrant depiction &mdash; delicate transitions of color.&rdquo;</blockquote>
+          <cite>April Schwingle<br>MA, 3 Dimensional Art &nbsp;&middot;&nbsp; BA, Graphic Design</cite>
+        </div>
+        <div class="critic-item reveal">
+          <blockquote>&ldquo;Remarkable.&rdquo;</blockquote>
+          <cite>Jared Stanley, PhD<br>Fine Arts<br>Texas Tech University</cite>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div style="background:var(--ink2);padding:0 60px">
-    <div style="border-top:1px solid rgba(154,125,74,0.15);padding:28px 0;text-align:center">
-      <p style="font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold)">Works from this series are held in private collections in Europe &nbsp;&middot;&nbsp; The Pacific &nbsp;&middot;&nbsp; Asia &nbsp;&middot;&nbsp; North America</p>
+    <div style="background:var(--ink2);padding:0 60px">
+      <div style="border-top:1px solid rgba(154,125,74,0.15);padding:28px 0;text-align:center">
+        <p style="font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold)">Works from this series are held in private collections in Europe &nbsp;&middot;&nbsp; The Pacific &nbsp;&middot;&nbsp; North America</p>
+      </div>
     </div>
-  </div>
 
-  <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+    <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+  </div>
 </div>
 
 <!-- MATERIALS -->
@@ -832,6 +834,14 @@ const works=[
   {src:'VanDoodewaard_Lonely.jpg',title:'Lonely',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033',badge:'DSWF Finalist'},
   {src:'VanDoodewaard_IvoryGhost.jpg',title:'Ivory Ghost',medium:'Pen and Ink on Paper',year:'2026',dims:'11\u00d714\u2033'},
   {src:'IMG_20260718_163109.jpg',title:'Nocturne',medium:'Gel Ink on Black Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'IMG_20260610_161628.jpg',title:'Guadalupe',medium:'Acrylic on Canvas',year:'2026',dims:'9\u00d712\u2033'},
+  {src:'IMG_20250930_160833.jpg',title:'Dugga Boy',medium:'Watercolour and Ink on Paper',year:'2025',dims:'6\u00d78\u2033'},
+  {src:'20250424_165422[1].jpg',title:'Holland and Holland Side by Side',medium:'Graphite on Paper',year:'2025',dims:'4\u00d76\u2033'},
+  {src:'IMG_20260502_124755.jpg',title:'Grouse',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033'},
+  {src:'VanDoodewaard_Ewe.jpg',title:'Ewe',medium:'Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'IMG_20251127_110223~3.jpg',title:'Ring of Brodgar',medium:'Watercolour on Paper',year:'2025',dims:'8\u00d710\u2033'},
+  {src:'IMG_20250823_205223~2.jpg',title:'Baby Elephant Sketch',medium:'Graphite on Paper',year:'2025',dims:'2\u00d73\u2033'},
+  {src:'IMG_20251103_211311_01.jpg',title:'Illuminated Alphabet',medium:'Watercolour and Ink',year:'2024',dims:'10\u00d710\u2033'},
   {src:'VanDoodewaard_HuntingIslandLighthouse.jpg',title:'Hunting Island Lighthouse',medium:'Watercolour and Pen',year:'2026',dims:'4\u00d76\u2033'},
   {src:'VanDoodewaard_Caribou.jpg',title:'Caribou',medium:'Watercolour and Graphite',year:'2026',dims:'4\u00d76\u2033'},
   {src:'VanDoodewaard_Chimp.jpg',title:'Chimp',medium:'Pen on Paper',year:'2026',dims:'11\u00d714\u2033'},
@@ -845,15 +855,7 @@ const works=[
   {src:'IMG_20260719_084525.jpg',title:'Luna',medium:'Gel Ink on Black Paper',year:'2026',dims:'6\u00d78\u2033'},
   {src:'VanDoodewaard_CliffsOfDover.jpg',title:'Cliffs of Dover',medium:'Watercolour and Pen',year:'2026',dims:'6\u00d78\u2033'},
   {src:'VanDoodewaard_ThreeTrees(Detail).jpg',title:'Three Trees (Detail)',medium:'Pen and Ink',year:'2026',dims:'8.5\u00d711\u2033'},
-  {src:'20250621_174527.jpg',title:'Prairie Chicken',medium:'Watercolour on Paper',year:'2025',dims:'6\u00d78\u2033'},
-  {src:'IMG_20260610_161628.jpg',title:'Guadalupe',medium:'Acrylic on Canvas',year:'2026',dims:'9\u00d712\u2033'},
-  {src:'IMG_20250930_160833.jpg',title:'Dugga Boy',medium:'Watercolour and Ink on Paper',year:'2025',dims:'6\u00d78\u2033'},
-  {src:'20250424_165422[1].jpg',title:'Holland and Holland Side by Side',medium:'Graphite on Paper',year:'2025',dims:'4\u00d76\u2033'},
-  {src:'IMG_20260502_124755.jpg',title:'Grouse',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033'},
-  {src:'VanDoodewaard_Ewe.jpg',title:'Ewe',medium:'Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
-  {src:'IMG_20251127_110223~3.jpg',title:'Ring of Brodgar',medium:'Watercolour on Paper',year:'2025',dims:'8\u00d710\u2033'},
-  {src:'IMG_20250823_205223~2.jpg',title:'Baby Elephant Sketch',medium:'Graphite on Paper',year:'2025',dims:'2\u00d73\u2033'},
-  {src:'IMG_20251103_211311_01.jpg',title:'Illuminated Alphabet',medium:'Watercolour and Ink',year:'2024',dims:'10\u00d710\u2033'}
+  {src:'20250621_174527.jpg',title:'Prairie Chicken',medium:'Watercolour on Paper',year:'2025',dims:'6\u00d78\u2033'}
 ];
 
 const grid=document.getElementById('gallery-grid');
@@ -964,6 +966,35 @@ document.getElementById('enquire-form').addEventListener('submit',async function
 const ro=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');ro.unobserve(en.target)}});},{threshold:0.06});
 function initReveal(){document.querySelectorAll('.reveal:not(.in)').forEach(el=>ro.observe(el))}
 initReveal();
+
+// Dropdown logic: close on mouseleave and touch outside
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('mouseleave', () => {
+    const d = item.querySelector('.dropdown');
+    if(d) {
+      d.style.opacity = '0';
+      d.style.pointerEvents = 'none';
+      d.style.transform = 'translateX(-50%) translateY(-4px)';
+    }
+  });
+  item.addEventListener('mouseenter', () => {
+    const d = item.querySelector('.dropdown');
+    if(d) {
+      d.style.opacity = '1';
+      d.style.pointerEvents = 'all';
+      d.style.transform = 'translateX(-50%) translateY(0)';
+    }
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-item')) {
+    document.querySelectorAll('.dropdown').forEach(d => {
+      d.style.opacity = '0';
+      d.style.pointerEvents = 'none';
+      d.style.transform = 'translateX(-50%) translateY(-4px)';
+    });
+  }
+});
 </script>
 </body>
 </html>
