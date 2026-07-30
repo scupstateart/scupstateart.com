@@ -31,7 +31,7 @@ nav.hidden{transform:translateY(calc(-100% - var(--safe-top)))}
 .nav-item:hover .nav-caret{transform:rotate(180deg)}
 .dropdown{position:absolute;top:var(--nav-h);left:50%;transform:translateX(-50%) translateY(-4px);min-width:220px;background:rgba(14,13,11,0.99);border:1px solid rgba(154,125,74,0.15);border-top:1px solid var(--gold);opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s}
 .nav-item:hover .dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
-.dropdown-link{display:block;padding:12px 22px;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(247,243,236,0.55);cursor:pointer;border-bottom:1px solid rgba(154,125,74,0.07);transition:color 0.2s,background 0.2s;white-space:nowrap}
+.dropdown-link{display:block;padding:12px 22px;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(247,243,236,0.5);cursor:pointer;border-bottom:1px solid rgba(154,125,74,0.07);transition:color 0.2s,background 0.2s;white-space:nowrap}
 .dropdown-link:last-child{border-bottom:none}
 .dropdown-link:hover{color:var(--gold2);background:rgba(154,125,74,0.05)}
 .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0}
@@ -180,7 +180,7 @@ nav.hidden{transform:translateY(calc(-100% - var(--safe-top)))}
 .calc-col-head{padding:18px 20px 14px;border-bottom:1px solid rgba(154,125,74,0.1)}
 .calc-col-label{font-size:8px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0}
 .calc-options{flex:1;padding:8px 0}
-.calc-option{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:background 0.3s,color 0.3s;margin-top:4px;-webkit-tap-highlight-color:transparent;border-radius:0}
+.calc-option{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:background 0.18s;-webkit-tap-highlight-color:transparent}
 .calc-option:hover{background:rgba(154,125,74,0.06)}
 .calc-option input[type=radio]{display:none}
 .calc-radio{width:12px;height:12px;border:1px solid rgba(154,125,74,0.3);border-radius:50%;flex-shrink:0;position:relative;transition:border-color 0.2s}
@@ -314,6 +314,11 @@ footer{background:var(--ink);border-top:1px solid rgba(154,125,74,0.1);padding:2
   .form-row-2{grid-template-columns:1fr}
   .lb-prev{left:2px}.lb-next{right:2px}
   .lb-title{font-size:15px}
+  .hero-descriptor{font-size:10px;letter-spacing:0.28em}
+  .home-col-item{padding:36px 24px}
+  .ex-stat-row{gap:20px}
+  .critics-inner{grid-template-columns:1fr;gap:40px;padding:0 20px}
+  .critics-band{padding:56px 0}
 }
 @media(max-width:480px){
   .calc-selectors{grid-template-columns:1fr}
@@ -514,7 +519,7 @@ footer{background:var(--ink);border-top:1px solid rgba(154,125,74,0.1);padding:2
 
   <div style="background:var(--ink2);padding:0 60px">
     <div style="border-top:1px solid rgba(154,125,74,0.15);padding:28px 0;text-align:center">
-      <p style="font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold)">Works from this series are held in private collections in Europe &nbsp;&middot;&nbsp; The Pacific &nbsp;&middot;&nbsp; North America</p>
+      <p style="font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold)">Works from this series are held in private collections in Europe &nbsp;&middot;&nbsp; The Pacific &nbsp;&middot;&nbsp; Asia &nbsp;&middot;&nbsp; North America</p>
     </div>
   </div>
 
@@ -549,7 +554,7 @@ footer{background:var(--ink);border-top:1px solid rgba(154,125,74,0.1);padding:2
         </div>
       </div>
     </div>
-    <div class="supply-section">
+    <div class="supply-section" style="background:var(--cream)">
       <div class="container">
         <div class="supply-section-head reveal">
           <div>
@@ -747,43 +752,6 @@ footer{background:var(--ink);border-top:1px solid rgba(154,125,74,0.1);padding:2
   </div>
 </div>
 
-<!-- ENQUIRE -->
-<div class="page" id="enquire-page">
-  <div class="page-body" style="background:var(--ink)">
-    <section class="section">
-      <div class="container">
-        <span class="eyebrow reveal">Contact</span>
-        <h2 class="heading-1 light reveal">Enquire</h2>
-        <div class="rule reveal"></div>
-        <div class="enquire-layout reveal">
-          <div class="contact-block">
-            <p>For acquisition enquiries, commission discussions, exhibition opportunities, or general correspondence, use the form or write directly.</p>
-            
-            <a class="ig-link" href="https://www.instagram.com/scupstateart/" target="_blank">
-              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-              @scupstateart
-            </a>
-          </div>
-          <div>
-            <div class="fs-success" id="fs-success">
-              <p>Thank you &mdash; your message has been received. I will be in touch shortly.</p>
-            </div>
-            <form class="form-stack" id="enquire-form" novalidate>
-              <div class="f-group"><label class="f-label">Name</label><input class="f-input" type="text" name="name" required autocomplete="name"></div>
-              <div class="f-group"><label class="f-label">Email</label><input class="f-input" type="email" name="email" required autocomplete="email" inputmode="email"></div>
-              <div class="f-group"><label class="f-label">Subject</label><select class="f-select" name="subject"><option value="">Select</option><option>Acquisition Enquiry</option><option>Commission</option><option>Exhibition / Gallery</option><option>Press</option><option>General</option></select></div>
-              <div class="f-group"><label class="f-label">Message</label><textarea class="f-textarea" name="message" required></textarea></div>
-              <p class="fs-error" id="fs-error">Something went wrong. Please try again or write directly to scupstateart@gmail.com</p>
-              <button type="submit" class="btn" id="fs-submit">Send</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-    <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
-  </div>
-</div>
-
 <!-- EXHIBITIONS -->
 <div class="page" id="exhibitions-page">
   <div class="page-body" style="background:var(--cream)">
@@ -821,18 +789,55 @@ footer{background:var(--ink);border-top:1px solid rgba(154,125,74,0.1);padding:2
   </div>
 </div>
 
+<!-- ENQUIRE -->
+<div class="page" id="enquire-page">
+  <div class="page-body" style="background:var(--ink)">
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow reveal">Contact</span>
+        <h2 class="heading-1 light reveal">Enquire</h2>
+        <div class="rule reveal"></div>
+        <div class="enquire-layout reveal">
+          <div class="contact-block">
+            <p>For acquisition enquiries, commission discussions, exhibition opportunities, or general correspondence, use the form or write directly.</p>
+            <span class="contact-email">scupstateart@gmail.com</span>
+            <a class="ig-link" href="https://www.instagram.com/scupstateart/" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              @scupstateart
+            </a>
+          </div>
+          <div>
+            <div class="fs-success" id="fs-success">
+              <p>Thank you &mdash; your message has been received. I will be in touch shortly.</p>
+            </div>
+            <form class="form-stack" id="enquire-form" novalidate>
+              <div class="f-group"><label class="f-label">Name</label><input class="f-input" type="text" name="name" required autocomplete="name"></div>
+              <div class="f-group"><label class="f-label">Email</label><input class="f-input" type="email" name="email" required autocomplete="email" inputmode="email"></div>
+              <div class="f-group"><label class="f-label">Subject</label><select class="f-select" name="subject"><option value="">Select</option><option>Acquisition Enquiry</option><option>Commission</option><option>Exhibition / Gallery</option><option>Press</option><option>General</option></select></div>
+              <div class="f-group"><label class="f-label">Message</label><textarea class="f-textarea" name="message" required></textarea></div>
+              <p class="fs-error" id="fs-error">Something went wrong. Please try again or write directly to scupstateart@gmail.com</p>
+              <button type="submit" class="btn" id="fs-submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer><span class="footer-l">Matthew VanDoodewaard &nbsp;&middot;&nbsp; Original Works</span><span class="footer-r">&copy; 2026</span></footer>
+  </div>
+</div>
+
 <script>
 const works=[
   {src:'VanDoodewaard_BlackDeath.jpg',title:'Black Death',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033',badge:'DSWF Finalist'},
   {src:'VanDoodewaard_Lonely.jpg',title:'Lonely',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033',badge:'DSWF Finalist'},
   {src:'VanDoodewaard_IvoryGhost.jpg',title:'Ivory Ghost',medium:'Pen and Ink on Paper',year:'2026',dims:'11\u00d714\u2033'},
   {src:'IMG_20260718_163109.jpg',title:'Nocturne',medium:'Gel Ink on Black Paper',year:'2026',dims:'6\u00d78\u2033'},
-  {src:'IMG_20260610_161628.jpg',title:'Guadalupe',medium:'Acrylic on Canvas',year:'2026',dims:'9\u00d712\u2033'},
-  {src:'IMG_20250930_160833.jpg',title:'Dugga Boy',medium:'Watercolour and Ink on Paper',year:'2025',dims:'6\u00d78\u2033'},
-  {src:'20250424_165422[1].jpg',title:'Holland and Holland Side by Side',medium:'Graphite on Paper',year:'2025',dims:'4\u00d76\u2033'},
-  {src:'IMG_20260502_124755.jpg',title:'Grouse',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033'},
-  {src:'VanDoodewaard_Ewe.jpg',title:'Ewe',medium:'Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
-  {src:'IMG_20251127_110223~3.jpg',title:'Watching the Water Rise',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033'},
+  {src:'VanDoodewaard_HuntingIslandLighthouse.jpg',title:'Hunting Island Lighthouse',medium:'Watercolour and Pen',year:'2026',dims:'4\u00d76\u2033'},
+  {src:'VanDoodewaard_Caribou.jpg',title:'Caribou',medium:'Watercolour and Graphite',year:'2026',dims:'4\u00d76\u2033'},
+  {src:'VanDoodewaard_Chimp.jpg',title:'Chimp',medium:'Pen on Paper',year:'2026',dims:'11\u00d714\u2033'},
+  {src:'VanDoodewaard_Pelican(Detail).jpg',title:'Pelican (Detail)',medium:'Graphite on Paper',year:'2026',dims:'4\u00d74\u2033'},
+  {src:'VanDoodewaard_TheWaterfall.jpg',title:'The Waterfall',medium:'Ink and Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'VanDoodewaard_WatchingTheWaterRise.jpg',title:'Watching the Water Rise',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033'},
   {src:'VanDoodewaard_Sticklegs.jpg',title:'Sticklegs',medium:'Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
   {src:'VanDoodewaard_Leap.jpg',title:'Leap',medium:'Pen and Wash',year:'2026',dims:'4\u00d76\u2033'},
   {src:'IMG_20251111_131252.jpg',title:'And No Birds Sang',medium:'Watercolour on Paper',year:'2025',dims:'11\u00d714\u2033'},
@@ -841,12 +846,12 @@ const works=[
   {src:'VanDoodewaard_CliffsOfDover.jpg',title:'Cliffs of Dover',medium:'Watercolour and Pen',year:'2026',dims:'6\u00d78\u2033'},
   {src:'VanDoodewaard_ThreeTrees(Detail).jpg',title:'Three Trees (Detail)',medium:'Pen and Ink',year:'2026',dims:'8.5\u00d711\u2033'},
   {src:'20250621_174527.jpg',title:'Prairie Chicken',medium:'Watercolour on Paper',year:'2025',dims:'6\u00d78\u2033'},
-  {src:'VanDoodewaard_HuntingIslandLighthouse.jpg',title:'Hunting Island Lighthouse',medium:'Watercolour and Pen',year:'2026',dims:'4\u00d76\u2033'},
-  {src:'VanDoodewaard_Caribou.jpg',title:'Caribou',medium:'Watercolour and Graphite',year:'2026',dims:'4\u00d76\u2033'},
-  {src:'VanDoodewaard_Chimp.jpg',title:'Chimp',medium:'Pen on Paper',year:'2026',dims:'11\u00d714\u2033'},
-  {src:'VanDoodewaard_Pelican(Detail).jpg',title:'Pelican (Detail)',medium:'Graphite on Paper',year:'2026',dims:'4\u00d74\u2033'},
-  {src:'VanDoodewaard_TheWaterfall.jpg',title:'The Waterfall',medium:'Ink and Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
-  {src:'IMG_20250823_205223~2.jpg',title:'Ring of Brodgar',medium:'Watercolour on Paper',year:'2025',dims:'8\u00d710\u2033'},
+  {src:'IMG_20260610_161628.jpg',title:'Guadalupe',medium:'Acrylic on Canvas',year:'2026',dims:'9\u00d712\u2033'},
+  {src:'IMG_20250930_160833.jpg',title:'Dugga Boy',medium:'Watercolour and Ink on Paper',year:'2025',dims:'6\u00d78\u2033'},
+  {src:'20250424_165422[1].jpg',title:'Holland and Holland Side by Side',medium:'Graphite on Paper',year:'2025',dims:'4\u00d76\u2033'},
+  {src:'IMG_20260502_124755.jpg',title:'Grouse',medium:'Watercolour on Paper',year:'2026',dims:'11\u00d714\u2033'},
+  {src:'VanDoodewaard_Ewe.jpg',title:'Ewe',medium:'Watercolour on Paper',year:'2026',dims:'6\u00d78\u2033'},
+  {src:'IMG_20251127_110223~3.jpg',title:'Ring of Brodgar',medium:'Watercolour on Paper',year:'2025',dims:'8\u00d710\u2033'},
   {src:'IMG_20250823_205223~2.jpg',title:'Baby Elephant Sketch',medium:'Graphite on Paper',year:'2025',dims:'2\u00d73\u2033'},
   {src:'IMG_20251103_211311_01.jpg',title:'Illuminated Alphabet',medium:'Watercolour and Ink',year:'2024',dims:'10\u00d710\u2033'}
 ];
